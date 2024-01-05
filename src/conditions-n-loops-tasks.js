@@ -464,11 +464,8 @@ function sortByAsc(arr) {
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
- * Usage of Array class methods is not allowed in this task.
- *
- * @param {string} str - The string to shuffle.
- * @param {number} iterations - The number of iterations to perform the shuffle.
- * @return {string} The shuffled string.
+ * Usage of Array class methods is not allowed 
+    iter -= 1;
  *
  * @example:
  *  '012345', 1 => '024135'
@@ -484,6 +481,8 @@ function shuffleChar(str, iterations) {
   let left = '';
   let right = '';
   let word = str;
+  let optimizer = 0;
+  let isOptimised = false;
   if (!iterations) {
     return str;
   }
@@ -501,6 +500,11 @@ function shuffleChar(str, iterations) {
     result = `${left}${right}`;
     word = result;
     iter -= 1;
+    if (!isOptimised && result === str && iter !== 0) {
+      optimizer = iterations - iter;
+      isOptimised = true;
+      iter %= optimizer;
+    }
   }
   return result;
 }
